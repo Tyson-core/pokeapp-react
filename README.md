@@ -1,6 +1,6 @@
 ##  THIS APPLICACTION IS NO FINISHED.
 
-[YOU CAN TEST THIS APP HERE](https://pokeapp-r.netlify.app/)
+[YOU CAN TEST THIS APP HERE](https://pokeapp-react-v1.netlify.app/)
 
 ## PokeApp
 In this app you can find a Pokemon, see her stats and many other things!
@@ -28,7 +28,7 @@ For run this app you can use:
 
 [ValidatorJS](https://www.npmjs.com/package/validator)
 
-[CharJS](https://www.chartjs.org/)
+[ChartJS](https://www.chartjs.org/)
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
