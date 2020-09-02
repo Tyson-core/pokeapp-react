@@ -35,7 +35,7 @@ export const SearchScreen = () => {
       ? setError(true)
       : setError(false);
 
-    inputValue.length > 1
+    inputValue.length > 2
       ? dispatch(getPokemons(inputValue))
       : dispatch(resetResult());
   }, [inputValue, dispatch]);
