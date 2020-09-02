@@ -14,6 +14,8 @@ export const getPokemons = (word) => {
   };
 };
 
+
+
 export const searchPokemon = (poke) => {
   return async (dispatch) => {
     try {
@@ -34,6 +36,26 @@ export const searchPokemon = (poke) => {
   };
 };
 
+export const pokemonCompare = (poke) => {
+  return async (dispatch) => {
+    try {
+      const fetch = await axios.get(urlAPI);
+      const result = fetch.data;
+      const dataName = result.results.map(res=>res.name);
+      const dataFilter = dataName.filter(res=> res === poke);
+      if(dataFilter[0] !== undefined){
+        const fetchFilter = await axios.get(initUrl +poke);
+        const result = fetchFilter.data;
+        dispatch(startGetPkCompare(result))
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+
+
 export const nextPokemon = (id)=>{
   return async (dispatch)=>{
     const fetch = await axios.get(initUrl+id);
@@ -49,6 +71,14 @@ export const prevPokemon = (id)=>{
     dispatch(startPrevPokemon(result))
   }
 }
+
+export const clearResultComparison =()=>({
+  type:types.eventClearComparisonResult
+})
+
+export const resetCard =()=>({
+  type:types.eventResetCard
+})
 
 export const startError =()=>({
   type:types.startError
@@ -77,3 +107,9 @@ const startGetPokemon = (data) => ({
   type: types.eventGetPokemons,
   payload: data
 });
+
+
+const startGetPkCompare =(data)=>({
+  type:types.eventGetComparePokemon,
+  payload:data
+})

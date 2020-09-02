@@ -15,7 +15,6 @@ export const searchPokemon = (state = initState, action) => {
       return {
         ...initState,
       };
-
     default:
       return state;
   }
@@ -43,6 +42,10 @@ export const cardReducer = (state = initStateCard, action) => {
         ...state,
         result: action.payload,
       };
+    case types.eventResetCard:
+      return{
+        ...initStateCard
+      }
     case types.startError:
       return {
         ...initState,
@@ -52,3 +55,24 @@ export const cardReducer = (state = initStateCard, action) => {
       return state;
   }
 };
+
+const initStateCompare = {
+  result: {},
+};
+
+export const compareResult = (state=initStateCompare,action)=>{
+  switch (action.type) {
+    case types.eventGetComparePokemon:
+      return {
+        ...state,
+        result: action.payload,
+      };  
+    case types.eventClearComparisonResult:
+      return{
+        ...state,
+        result:{}
+      }
+    default:
+      return state;
+  }
+}

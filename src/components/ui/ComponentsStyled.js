@@ -1,40 +1,34 @@
 import { css } from "@emotion/core";
 import styled from "@emotion/styled";
 
-const resWidth = [540, 768, 992, 1200,400]
+const resWidth = [540, 768, 992, 1200, 400];
 
 export const bgColor = {
-  fire: '#FDDFDF',
-  grass: '#DEFDE0',
-  electric: '#FCF7DE',
-  water: '#DEF3FD',
-  ground: '#f4e7da',
-  rock: '#d5d5d4',
-  fairy: '#fceaff',
-  poison: '#98d7a5',
-  bug: '#f8d5a3',
-  dragon: '#97b3e6',
-  psychic: '#B7A0CA',
-  flying: '#F5F5F5',
-  fighting: '#E6E0D4',
-  normal: '#F5F5F5',
-  steel:'#B4B5B7',
-  ice:'#B8F1FF',
-  dark:'#D3D3D3',
-  ghost:'#E2E3E9'
-};      
+  fire: "#FDDFDF",
+  grass: "#DEFDE0",
+  electric: "#FCF7DE",
+  water: "#DEF3FD",
+  ground: "#f4e7da",
+  rock: "#d5d5d4",
+  fairy: "#fceaff",
+  poison: "#98d7a5",
+  bug: "#f8d5a3",
+  dragon: "#97b3e6",
+  psychic: "#B7A0CA",
+  flying: "#F5F5F5",
+  fighting: "#E6E0D4",
+  normal: "#F5F5F5",
+  steel: "#B4B5B7",
+  ice: "#B8F1FF",
+  dark: "#D3D3D3",
+  ghost: "#E2E3E9",
+};
 export const colorType = Object.keys(bgColor);
 
+export const maxQ = resWidth.map((bp) => `@media (max-width: ${bp}px)`);
 
+export const minQ = resWidth.map((bp) => `@media (min-width: ${bp}px)`);
 
-export const maxQ = resWidth.map(
-  bp => `@media (max-width: ${bp}px)`
-)
-
-export const minQ = resWidth.map(
-  bp => `@media (min-width: ${bp}px)`
-)
-  
 export const NavbarUi = styled.nav((props) => ({
   padding: "6px",
   height: "7vh",
@@ -50,62 +44,61 @@ export const HomeContainer = styled.section({
   padding: "10px",
 });
 
-
 export const FormSearch = styled.form({
-    marginTop:'50px',
-    fontSize:'12px'
-})
+  marginTop: "50px",
+  fontSize: "12px",
+});
 
 export const Card = styled.div({
-  marginTop:'30px',
-  fontSize:'12px',
-  display:'flex',
-  border:'3px solid black',
-  padding:'0.5rem 0.4rem',
-  flexDirection: 'column'
-})
+  marginTop: "30px",
+  fontSize: "12px",
+  display: "flex",
+  border: "3px solid black",
+  padding: "0.5rem 0.4rem",
+  flexDirection: "column",
+});
 
 export const CardBody = styled.div({
-  display:'flex',
-  justifyContent:'center',
-  flexWrap:'wrap',
-})
+  display: "flex",
+  justifyContent: "center",
+  flexWrap: "wrap",
+});
 
-export const ButtonSec= styled.div({
-  display:'flex',
-  width:'100vw',
+export const ButtonSec = styled.div({
+  display: "flex",
+  width: "100vw",
   // flexDirection:'row',
-  justifyContent:'center',
-  flexFlow: 'row wrap'
-})
+  justifyContent: "center",
+  flexFlow: "row wrap",
+});
 
 export const NextPrevBtn = styled.div({
-  display: "flex", 
-  justifyContent: "center", 
-  marginTop: "10px"
-})
+  display: "flex",
+  justifyContent: "center",
+  marginTop: "10px",
+});
 
 export const SearchHelper = styled.div({
-  width:'100%',
-  height:'100%',
-  borderBottom:'3px black solid',
-  borderRight:'3px black solid',
-  borderLeft:'3px black solid',
-  display:'flex',
-  flexDirection:'column',
-})
+  width: "100%",
+  height: "100%",
+  borderBottom: "3px black solid",
+  borderRight: "3px black solid",
+  borderLeft: "3px black solid",
+  display: "flex",
+  flexDirection: "column",
+});
 
 export const SelectBtn = styled.button({
-  backgroundColor:'white',
-  transition:'ease-in-out all .3s',
-  [`:hover`]:{
-    backgroundColor:'gray',
-    color:'white'
+  backgroundColor: "white",
+  transition: "ease-in-out all .3s",
+  [`:hover`]: {
+    backgroundColor: "gray",
+    color: "white",
   },
-  [`:focus`]:{
-    outline:'none'
-  }
-})
+  [`:focus`]: {
+    outline: "none",
+  },
+});
 
 // CSS
 
@@ -125,16 +118,56 @@ export const cardImg = css({
   imageRendering: "pixelated",
 });
 
-
-
 export const exitModalBtn = css({
-    width: '20px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin:'5px',
-    height: '20px',
-    position: 'absolute',
-    right: '0',
-    top: '0'
-})
+  width: "20px",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  margin: "5px",
+  height: "20px",
+  position: "absolute",
+  right: "0",
+  top: "0",
+});
+
+export const wrongPlaceStyle = css({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "100vh",
+  flexDirection: "column",
+});
+
+export const compareStyleCard = css({
+  display: "flex",
+  flexWrap: "wrap",
+  justifyContent: "center",
+  [`& div`]: {
+    [maxQ[1]]: [
+      {
+        width: "73vw",
+      },
+    ],
+    margin: "20px",
+    width: "40vw",
+    backgroundColor:'white'
+  },
+});
+
+export const chartSection = css({
+  display: "flex",
+  justifyContent: "center",
+  marginTop: "40px",
+  flexDirection: "column",
+});
+
+export const chartStyleStatic = css({
+  backgroundColor: 'white',
+  border: "3px solid black",
+  color: "red",
+  position: "relative",
+  margin: "auto",
+  height: "50vh",
+  width: "80vw",
+  marginBottom:'30px'
+});
