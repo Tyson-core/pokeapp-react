@@ -5,7 +5,11 @@
 ## PokeApp
 In this app you can find a Pokemon, see her stats and many other things!
 
-For run this app you can use:
+First you need install NPM with this command
+
+### `npm install`
+
+You can use this command for run this app
 
 ### `npm start`
 
@@ -19,8 +23,8 @@ For run this app you can use:
 [Redux]( https://www.npmjs.com/package/redux )
 
 [Redux Thunk]( https://www.npmjs.com/package/redux-thunk )
-<!-- 
-[React Router DOM](https://www.npmjs.com/package/react-router-dom) -->
+
+[React Router DOM](https://www.npmjs.com/package/react-router-dom)
 
 [Nes.css](https://nostalgic-css.github.io/NES.css/)
 
