@@ -1,8 +1,17 @@
-import { css } from "@emotion/core";
+import { css, keyframes } from "@emotion/core";
 import styled from "@emotion/styled";
 
 const resWidth = [540, 768, 992, 1200, 400];
-
+// Animation
+export const fadeIn = keyframes`
+  from {
+      opacity:0;
+  }
+  to {
+      opacity:1;
+  }
+`
+// ColorTypePoke
 export const bgColor = {
   fire: "#FDDFDF",
   grass: "#DEFDE0",
@@ -25,10 +34,12 @@ export const bgColor = {
 };
 export const colorType = Object.keys(bgColor);
 
+// MediaQuery
 export const maxQ = resWidth.map((bp) => `@media (max-width: ${bp}px)`);
 
 export const minQ = resWidth.map((bp) => `@media (min-width: ${bp}px)`);
 
+// Component
 export const NavbarUi = styled.nav((props) => ({
   padding: "6px",
   height: "7vh",
@@ -67,7 +78,6 @@ export const CardBody = styled.div({
 export const ButtonSec = styled.div({
   display: "flex",
   width: "100vw",
-  // flexDirection:'row',
   justifyContent: "center",
   flexFlow: "row wrap",
 });
@@ -150,7 +160,7 @@ export const compareStyleCard = css({
     ],
     margin: "20px",
     width: "40vw",
-    backgroundColor:'white'
+    backgroundColor: "white",
   },
 });
 
@@ -162,12 +172,31 @@ export const chartSection = css({
 });
 
 export const chartStyleStatic = css({
-  backgroundColor: 'white',
+  backgroundColor: "white",
   border: "3px solid black",
   color: "red",
   position: "relative",
   margin: "auto",
   height: "50vh",
   width: "80vw",
-  marginBottom:'30px'
+  marginBottom: "30px",
 });
+
+export const clockTop = css({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  border: "3px solid",
+  transition:'.3s ease all',
+  [`:hover`]:{
+    boxShadow:'0px 0px 10px 0px rgba(0,0,0,0.75)'
+  }
+});
+
+export const imgNavbarStyle =css({
+  height: "110%",
+  transition:'.1s ease all',
+  [`:hover`]:{
+    transform:'scale(1.1)'
+  }
+})

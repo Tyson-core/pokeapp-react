@@ -1,4 +1,4 @@
-##  THIS APPLICACTION IS NO FINISHED.
+<!-- ##  THIS APPLICACTION IS NO FINISHED. -->
 
 [YOU CAN TEST THIS APP HERE](https://pokeapp-react-v1.netlify.app/)
 

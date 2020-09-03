@@ -43,6 +43,9 @@ export const pokemonCompare = (poke) => {
       const result = fetch.data;
       const dataName = result.results.map(res=>res.name);
       const dataFilter = dataName.filter(res=> res === poke);
+      if(dataFilter.length === 0){
+        dispatch(clearResultComparison())
+      }
       if(dataFilter[0] !== undefined){
         const fetchFilter = await axios.get(initUrl +poke);
         const result = fetchFilter.data;

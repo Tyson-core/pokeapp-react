@@ -10,7 +10,7 @@ import {
   cardImg,
   colorType,
   bgColor,
-  exitModalBtn
+  exitModalBtn,
 } from "./ui/ComponentsStyled";
 import validator from "validator";
 
@@ -20,7 +20,7 @@ import { NextPrev } from "./NextPrev";
 import { shinyValidator } from "../helper/shinyValidator";
 import { ChartStats } from "./ChartStats";
 import { useHistory } from "react-router-dom";
-import { pokemonCompare, clearResultComparison } from "../actions/poke";
+import { pokemonCompare } from "../actions/poke";
 
 export const CardScreen = () => {
   let pokeAbi;
@@ -30,19 +30,19 @@ export const CardScreen = () => {
 
   const [shiny, setShiny] = useState(false);
   const [showStats, setShowStats] = useState(false);
-  const [errorCompare, setErrorCompare]=useState(false)
-  const [compareValue, setCompareValue] = useState("")
+  const [showError, setShowError] = useState(false);
+  const [compareValue, setCompareValue] = useState("");
+  const [errorAlert, setErrorAlert] = useState(null);
 
   const { result } = useSelector((state) => state.cardReducer);
-  const { result:compareResult } = useSelector((state) => state.compareResult);
+  const { result: compareResult } = useSelector((state) => state.compareResult);
   const verification = Object.keys(result).length === 0;
+  const compareVerification = Object.keys(compareResult).length === 0;
 
-
-  const history = useHistory()
+  const history = useHistory();
   const pokeImg = useRef();
   const dialogModal = useRef();
   const inputCompare = useRef();
-
 
   if (!verification) {
     pokeAbi = result.abilities.map((res) => res.ability.name.toUpperCase());
@@ -60,7 +60,7 @@ export const CardScreen = () => {
     setShiny(!shiny);
   };
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleStats = () => {
     setShowStats(!showStats);
@@ -68,45 +68,51 @@ export const CardScreen = () => {
 
   const handleModalSubmit = (e) => {
     e.preventDefault();
-    if(compareValue.toLowerCase() === result.name){
-      return
-    }
-    if(!compareValue.trim() && validator.isNumeric(compareValue.trim())){
-      return
+    if (validator.isNumeric(compareValue.trim())) {
+      setShowError(true);
+      setErrorAlert("Ups! Pokemon not found.");
+      return;
     }
 
-    history.push("/compare")
+    if (!compareValue.trim()) {
+      return;
+    }
+    if (compareValue.toLowerCase() === result.name) {
+      return;
+    }
+    if (compareVerification) {
+      setShowError(true);
+      setErrorAlert("Ups! Pokemon not found.");
+      return;
+    }
 
+    history.push("/compare");
   };
 
-  const handleShowModal=()=>{
-    dialogModal.current.showModal()
-    inputCompare.current.focus()
-  }
+  const handleShowModal = () => {
+    dialogModal.current.showModal();
+    inputCompare.current.focus();
+  };
 
-  const handleCloseModal=()=>{
-    dialogModal.current.close()
-    setCompareValue("")
-  }
+  const handleCloseModal = () => {
+    dialogModal.current.close();
+    setCompareValue("");
+  };
 
   useEffect(() => {
-    if(compareValue.toLowerCase() === result.name){
-      setErrorCompare(true)
-    }else{
-      setErrorCompare(false)
-      dispatch(pokemonCompare(compareValue));
+    if (compareValue.toLowerCase() === result.name) {
+      setShowError(true);
+      setErrorAlert(
+        "Verify that the name is not the same as the current Pokemon"
+      );
+      return;
+    } else {
+      setShowError(false);
     }
-    if(compareValue.length === 0){
-      dispatch(clearResultComparison())
-    }
-    if(compareValue !== compareResult.name){
-      dispatch(clearResultComparison())
-      return
-    }
+    dispatch(pokemonCompare(compareValue.toLowerCase()));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [compareValue,result.name])
-
+  }, [compareValue]);
 
   return !verification ? (
     <section>
@@ -125,10 +131,14 @@ export const CardScreen = () => {
                   ? `https://img.pokemondb.net/sprites/home/normal/${result.name}.png`
                   : `https://img.pokemondb.net/sprites/black-white/anim/normal/${result.name}.gif`
               }
-              alt="imgpoke" css={cardImg} ref={pokeImg} />
-            <div css={{
+              alt="imgpoke"
+              css={cardImg}
+              ref={pokeImg}
+            />
+            <div
+              css={{
                 [maxQ[0]]: { marginLeft: "10px" },
-                [minQ[1]]: { marginLeft: "20px" }
+                [minQ[1]]: { marginLeft: "20px" },
               }}
             >
               <p>Number: {result.id}</p>
@@ -158,7 +168,7 @@ export const CardScreen = () => {
                 type="button"
                 className="nes-btn"
                 onClick={handleShowModal}
-                css={{[maxQ[4]]:{marginTop:'12px'}}}
+                css={{ [maxQ[4]]: { marginTop: "12px" } }}
               >
                 Compare?
               </button>
@@ -181,25 +191,44 @@ export const CardScreen = () => {
           alignItems: "center",
         }}
       >
-        <dialog className="nes-dialog" id="dialog-rounded" ref={dialogModal}
-        css={{[maxQ[0]]:{margin:'0.3rem'}}} >
-          <button type="button" className="nes-btn is-error" css={exitModalBtn}
-          onClick={handleCloseModal}>X</button>
+        <dialog
+          className="nes-dialog"
+          id="dialog-rounded"
+          ref={dialogModal}
+          css={{
+            [maxQ[0]]: { margin: "0.3rem" },
+            [minQ[1]]: { maxWidth: "50%" },
+            [minQ[3]]: { maxWidth: "34%" },
+          }}
+        >
+          <button
+            type="button"
+            className="nes-btn is-error"
+            css={exitModalBtn}
+            onClick={handleCloseModal}
+          >
+            X
+          </button>
           <form onSubmit={handleModalSubmit}>
-            <p>Write the name of the pokemon</p>
-            <p>you want to compare.</p>
+            <p>Write the name of the pokemon you want to compare.</p>
             <div className="nes-field">
-              <input type="text" id="name_field" className="nes-input"
-              ref={inputCompare}
-              value={compareValue} onChange={e=>setCompareValue(e.target.value)} />
+              <input
+                type="text"
+                id="name_field"
+                className="nes-input"
+                ref={inputCompare}
+                value={compareValue}
+                onChange={(e) => setCompareValue(e.target.value)}
+              />
             </div>
-            {
-              errorCompare&&(
-                <p className="nes-text is-error"css={{marginTop:'15px'}}
-                >Verify that the name is not <br/>the same as the current Pokemon</p>
-              )
-            }
-
+            {showError && (
+              <p
+                className="nes-text is-error"
+                css={{ marginTop: "15px", marginBottom: "5px" }}
+              >
+                {errorAlert}
+              </p>
+            )}
           </form>
         </dialog>
       </section>
